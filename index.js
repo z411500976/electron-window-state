@@ -45,14 +45,27 @@ module.exports = function (options) {
     };
   }
 
+  // function windowWithinBounds(bounds) {
+  //   return (
+  //     state.x >= bounds.x &&
+  //     state.y >= bounds.y &&
+  //     state.x + state.width <= bounds.x + bounds.width &&
+  //     state.y + state.height <= bounds.y + bounds.height
+  //   );
+  // }
   function windowWithinBounds(bounds) {
-    return (
-      state.x >= bounds.x &&
-      state.y >= bounds.y &&
-      state.x + state.width <= bounds.x + bounds.width &&
-      state.y + state.height <= bounds.y + bounds.height
-    );
-  }
+    const cx_1 = state.x + state.width / 2
+    const cy_1 = state.y + state.height / 2
+    const cx_2 = bounds.x + bounds.width / 2
+    const cy_2 = bounds.y + bounds.height / 2
+    return (Math.abs(cx_1 - cx_2) <= state.width / 2 + bounds.width / 2 - 150 && Math.abs(cy_1 - cy_2) <= state.height / 2 + bounds.height / 2 - 150)
+    // return (
+    //   (state.x >= bounds.x + 50 && state.x <= bounds.x + bounds.width - 50) && 
+    //   (state.y >= bounds.y + 50 && state.y <= bounds.y + bounds.height - 50) || 
+    //   (state.x + state.width >= bounds.x  + 50 && state.x + state.width <= bounds.x + bounds.width - 50) && 
+    //   (state.y + state.height >= bounds.y  + 50 && state.y + state.height <= bounds.y + bounds.height - 50)
+    // );
+  };
 
   function ensureWindowVisibleOnSomeDisplay() {
     const visible = screen.getAllDisplays().some(display => {
